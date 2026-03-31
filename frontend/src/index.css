@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 98%;
+    --foreground: 240 10% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 10% 4%;
+
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 5% 45%;
+
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 10% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.75rem;
+
+    --spark-blue: 221 83% 53%;
+    --spark-charcoal: 240 10% 4%;
+    --spark-soft: 240 10% 98%;
+  }
+
+  .dark {
+    --background: 222 28% 8%;
+    --foreground: 210 18% 96%;
+
+    --card: 222 24% 11%;
+    --card-foreground: 210 18% 96%;
+
+    --popover: 222 24% 11%;
+    --popover-foreground: 210 18% 96%;
+
+    --primary: 217 91% 64%;
+    --primary-foreground: 222 28% 8%;
+
+    --secondary: 222 16% 16%;
+    --secondary-foreground: 210 18% 96%;
+
+    --muted: 222 16% 16%;
+    --muted-foreground: 215 14% 72%;
+
+    --accent: 222 16% 16%;
+    --accent-foreground: 210 18% 96%;
+
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 210 18% 96%;
+
+    --border: 222 14% 22%;
+    --input: 222 14% 22%;
+    --ring: 217 91% 64%;
+
+    --spark-blue: 217 91% 64%;
+    --spark-charcoal: 222 30% 10%;
+    --spark-soft: 222 28% 8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  body,
+  nav,
+  section,
+  footer,
+  article,
+  div,
+  button,
+  a,
+  input,
+  textarea {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* Custom cursor */
+.spark-cursor {
+  width: 8px;
+  height: 8px;
+  background: hsl(var(--spark-charcoal));
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+              height 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+              background 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.spark-cursor.expanded {
+  width: 40px;
+  height: 40px;
+  background: hsl(0 0% 100%);
+}
+
+/* Floating label input */
+.spark-input {
+  @apply w-full bg-transparent outline-none text-xl font-light;
+}
+
+.spark-input::placeholder {
+  @apply text-muted-foreground/40;
+}
