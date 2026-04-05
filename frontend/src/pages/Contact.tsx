@@ -2,8 +2,32 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "sonner";
 import { apiRequest } from "@/lib/api";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const ease = [0.19, 1, 0.22, 1] as const;
+
+const faqs = [
+  {
+    question: "Who can contact Spark Consultancy?",
+    answer:
+      "Students, hiring partners, training institutes, and companies can all use this form to reach the team.",
+  },
+  {
+    question: "How quickly will I get a response?",
+    answer:
+      "Most enquiries are reviewed within 24 to 48 business hours, depending on request volume and the nature of the enquiry.",
+  },
+  {
+    question: "What should I include in my message?",
+    answer:
+      "Share your goal, your current situation, and the kind of support you need so the team can respond more precisely.",
+  },
+];
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", contact: "", description: "" });
@@ -131,11 +155,52 @@ const Contact = () => {
         <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-border pt-16">
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Email</p>
-            <p className="text-lg">hello@sparkconsultancy.com</p>
+            <p className="text-lg">operation@sparkconsulting.in</p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Location</p>
-            <p className="text-lg">India · Remote Support</p>
+            <p className="text-lg">India · Support</p>
+          </div>
+        </div>
+
+        <div className="mt-20 border-t border-border pt-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease }}
+            className="max-w-3xl"
+          >
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">FAQ</p>
+            <h2 className="mt-4 font-display text-4xl tracking-tight md:text-5xl">
+              Common questions before you reach out.
+            </h2>
+          </motion.div>
+
+          <div className="mt-10">
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {faqs.map((faq, index) => (
+                <motion.div
+                  key={faq.question}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08, duration: 0.5, ease }}
+                >
+                  <AccordionItem 
+                    value={`item-${index}`} 
+                    className="rounded-[1.5rem] border border-border bg-card px-6 py-2 shadow-sm data-[state=open]:bg-muted/50 transition-colors"
+                  >
+                    <AccordionTrigger className="text-xl font-medium text-foreground hover:no-underline text-left">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-base leading-relaxed text-muted-foreground pb-4">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
+              ))}
+            </Accordion>
           </div>
         </div>
       </div>

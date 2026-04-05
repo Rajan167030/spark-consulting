@@ -30,7 +30,7 @@ const leadership = [
     focus: ["Hiring Systems", "Career Strategy", "Partner Relations"],
   },
   {
-    name: "Dhirender singh",
+    name: "Dhirendra singh",
     role: "Chief exectuive officer",
     image: sparkfather ,
     focus: ["Operations", "Employer Network", "Student Success"],
@@ -112,25 +112,20 @@ const About = () => {
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
             Team
           </p>
-          <div className="grid gap-8 md:max-w-5xl md:grid-cols-2">
+          <div className="grid gap-16 md:max-w-5xl md:grid-cols-2 mt-8">
             {leadership.map((member, index) => (
               <motion.article
                 key={member.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -6, scale: 1.02 }}
+                whileHover={{ y: -6 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.15, duration: 0.7, ease }}
-                className="group relative overflow-hidden rounded-[2rem] border border-border/40 bg-gradient-to-br from-card/80 via-card/60 to-card/40 p-7 shadow-[0_8px_32px_rgba(0,0,0,0.08)] backdrop-blur-xl md:p-8 hover:shadow-[0_20px_60px_rgba(59,130,246,0.15)] hover:border-primary/30 transition-all duration-500"
+                className="group relative flex flex-col transition-all duration-500"
               >
-                {/* Animated gradient accent — top-right */}
-                <div className="pointer-events-none absolute -right-6 -top-6 h-40 w-40 rounded-full bg-gradient-to-br from-primary/25 via-blue-400/15 to-violet-500/10 blur-2xl group-hover:scale-125 group-hover:from-primary/35 group-hover:via-blue-400/25 transition-all duration-700" />
-                {/* Bottom-left subtle glow */}
-                <div className="pointer-events-none absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-gradient-to-tr from-violet-500/10 via-primary/5 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
                 <div className="relative flex flex-col">
                   <div className="mb-6 flex flex-col items-center gap-5">
-                    <div className="relative flex h-[360px] w-[280px] shrink-0 items-center justify-center overflow-hidden rounded-[1.4rem] bg-gradient-to-br from-primary/10 via-slate-100 to-blue-50 p-1 shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_4px_16px_rgba(0,0,0,0.06)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6),0_8px_24px_rgba(59,130,246,0.12)] transition-shadow duration-500">
+                    <div className="relative flex shrink-0 items-center justify-center overflow-hidden transition-shadow duration-500">
                       <TiltedCard
                         imageSrc={member.image}
                         altText={member.name}

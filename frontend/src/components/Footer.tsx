@@ -5,22 +5,25 @@ const navigationLinks = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
+{ label: "Our Partners", path: "/ourpartners" },
+
+
 ];
 
 const socialLinks = [
   {
-    label: "LinkedIn",
+    label: "",
     href: "https://www.linkedin.com/company/the-spark-consulting/",
     icon: Linkedin,
   },
   {
-    label: "Instagram",
+    label: "",
     href: "https://www.instagram.com/carrier_spark_consulting",
     icon: Instagram,
   },
   {
-    label: "X / Twitter",
-    href: "https://twitter.com",
+    label: "",
+    href: "https://x.com",
     icon: Twitter,
   },
 ];
@@ -33,7 +36,7 @@ const Footer = () => (
 
       <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.3fr_0.7fr]">
         <div>
-          <p className="text-xs uppercase tracking-[0.24em] text-white/55">Spark Consultancy</p>
+          <p className="text-xs uppercase tracking-[0.24em] text-white/55">Spark Consulting</p>
           <h3 className="mt-5 max-w-3xl text-4xl font-display leading-tight md:text-6xl">
             Designed for students who want signal, not noise.
           </h3>
@@ -79,17 +82,16 @@ const Footer = () => (
             <p className="text-xs uppercase tracking-[0.22em] text-white/55">Get In Touch</p>
             <div className="mt-5 space-y-3 text-base text-white/78">
               <Link to="/contact" className="block transition-colors hover:text-white">
-                Book an intro call
+                Book call
               </Link>
-              <a href="mailto:hello@sparkconsultancy.co" className="block transition-colors hover:text-white">
-                hello@sparkconsultancy.co
+              <a href="mailto:operation@sparkconsulting.in" className="block transition-colors hover:text-white">
+                operation@sparkconsulting.in
               </a>
-              <a href="https://www.linkedin.com/company/the-spark-consulting/" className="block transition-colors hover:text-white">
-                LinkedIn
-              </a>
+              
+            
               <p className="flex items-start gap-2 text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>3rd Floor, Sector 62, Noida, Uttar Pradesh 201309, India</span>
+                <span>Nexpo power solution pvt ltd , plot no.194 , Molarband Extension , Badarpur ,  New Delhi , INDIA</span>
               </p>
             </div>
           </div>
@@ -98,7 +100,14 @@ const Footer = () => (
 
       <div className="relative mx-auto mt-12 flex max-w-7xl flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/52 md:flex-row md:items-center md:justify-between">
         <p>© 2026 Spark Consultancy. All rights reserved.</p>
-        <p>Smaller cohorts. Higher conviction. Better placements.</p>
+        <div className="flex flex-wrap gap-4 text-white/72">
+          <Link to="/privacy-policy" className="transition-colors hover:text-white">
+            Privacy Policy
+          </Link>
+          <Link to="/terms-and-conditions" className="transition-colors hover:text-white">
+            Terms & Conditions
+          </Link>
+        </div>
       </div>
     </div>
   </footer>
