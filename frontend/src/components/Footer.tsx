@@ -91,7 +91,7 @@ const Footer = () => (
             
               <p className="flex items-start gap-2 text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>Nexpo power solution pvt ltd , plot no.194 , Molarband Extension , Badarpur ,  New Delhi , INDIA</span>
+                <span> Office no.194 , Molarband Extension , Badarpur ,  New Delhi , INDIA</span>
               </p>
             </div>
           </div>

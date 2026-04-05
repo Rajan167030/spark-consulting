@@ -54,7 +54,7 @@ const About = () => {
             We exist to close the gap.
           </h1>
           <p className="text-muted-foreground text-xl leading-relaxed max-w-[60ch] mb-8">
-            Spark was founded in 2019 with a simple thesis: the best talent is everywhere,
+            Spark was founded in 2024 with a simple thesis: the best talent is everywhere,
             but opportunity is not. We built a consultancy that pairs high-achieving students
             with the companies and mentors who can accelerate their careers.
           </p>
