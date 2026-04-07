@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "sonner";
+import SEOHead from "@/components/SEOHead";
 import { apiRequest } from "@/lib/api";
+import { seoConfig, baseURL } from "@/lib/seo";
 import {
   Accordion,
   AccordionContent,
@@ -124,7 +126,12 @@ const Contact = () => {
     formData.description.trim() !== "";
 
   return (
-    <section className="pt-32 pb-24 px-6">
+    <>
+      <SEOHead
+        {...seoConfig.contact}
+        canonicalUrl={`${baseURL}/contact`}
+      />
+      <section className="pt-32 pb-24 px-6">
       <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -303,6 +310,7 @@ const Contact = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

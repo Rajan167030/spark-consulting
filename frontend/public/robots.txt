@@ -1,13 +1,60 @@
+# Spark Consulting - SEO Robots Configuration
+# Allow search engines to crawl the entire website
+
+# Default rules - allow all bots
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /_next
+Disallow: /node_modules
+Crawl-delay: 1
+
+# Google
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 0
+Priority: 1.0
 
+# Bing
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
+# Yandex
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Twitter
 User-agent: Twitterbot
 Allow: /
 
+# Facebook
 User-agent: facebookexternalhit
+Allow: /
+
+# LinkedIn
+User-agent: Linkedinbot
+Allow: /
+
+# Instagram
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.thesparkconsulting.in/sitemap.xml
+
+# Comment for admin: Update this file with your robots.txt strategy
+# Current Strategy:
+# - Allow all major search engines to crawl public pages
+# - Block admin and internal directories
+# - Provide sitemap for better indexing
+# - Set appropriate crawl delays to avoid server overload
+
 Allow: /
 
 User-agent: *

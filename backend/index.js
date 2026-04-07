@@ -7,6 +7,7 @@ import adminroute from './routes/Adminroute.js'
 import studentroute from './routes/Studentroute.js'
 import companyroute from './routes/Companyroute.js'
 import queryroute from './routes/Queryoute.js'
+import chatroute from './routes/ChatRoute.js'
 const app = express();
 dotenv.config();
 const allowedOrigins = (
@@ -61,6 +62,7 @@ app.use('/admin',adminroute);
 app.use('/student',studentroute);
 app.use('/company',companyroute);
 app.use('/query',queryroute)
+app.use('/chat',chatroute)
 Connectdb();
 
 if (process.env.NODE_ENV !== 'production') {

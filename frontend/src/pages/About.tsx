@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
 import Manager from "@/assets/Manager.jpg";
 import sparkfather from "@/assets/sparkfather.jpeg";
 import TiltedCard from "@/components/TiltedCard";
+import { seoConfig, generateSchemaMarkup, baseURL } from "@/lib/seo";
 const ease = [0.19, 1, 0.22, 1] as const;
 
 const values = [
@@ -39,7 +41,13 @@ const leadership = [
 
 const About = () => {
   return (
-    <section className="pt-32 pb-24 px-6">
+    <>
+      <SEOHead
+        {...seoConfig.about}
+        canonicalUrl={`${baseURL}/about`}
+        schemaData={generateSchemaMarkup("organization")}
+      />
+      <section className="pt-32 pb-24 px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -177,6 +185,7 @@ const About = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

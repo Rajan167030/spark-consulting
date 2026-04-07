@@ -3,10 +3,12 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, Globe2, Sparkles, TrendingUp, Quote } from "lucide-react";
 import { useTheme } from "next-themes";
+import SEOHead from "@/components/SEOHead";
 import CompanyLogoCard from "@/components/CompanyLogoCard";
 import Beams from "@/components/Beams";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { apiRequest } from "@/lib/api";
+import { seoConfig, generateSchemaMarkup, baseURL } from "@/lib/seo";
 import paytmLogo from "@/assets/paytm.png";
 import screenshotOne from "@/assets/Screenshot 2026-04-05 163639.png";
 import screenshotTwo from "@/assets/Screenshot 2026-04-05 163704.png";
@@ -141,6 +143,12 @@ const Index = () => {
 
   return (
     <>
+      <SEOHead
+        {...seoConfig.home}
+        ogImage={`${baseURL}/spark-logo.png`}
+        canonicalUrl={baseURL}
+        schemaData={generateSchemaMarkup("organization")}
+      />
       <section className="relative overflow-hidden px-6 pt-28 pb-20 md:pt-36 md:pb-28">
         <div className="pointer-events-none absolute inset-0 z-0 opacity-75 dark:opacity-90">
           <Beams

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
 import { apiRequest } from "@/lib/api";
+import { seoConfig, baseURL } from "@/lib/seo";
 import paytmLogo from "@/assets/paytm.png";
 import screenshotOne from "@/assets/Screenshot 2026-04-05 163639.png";
 import screenshotTwo from "@/assets/Screenshot 2026-04-05 163704.png";
@@ -71,7 +73,12 @@ const OurPartners = () => {
     fetchCompanies();
   }, []);
   return (
-    <section className="px-6 pb-24 pt-32">
+    <>
+      <SEOHead
+        {...seoConfig.partners}
+        canonicalUrl={`${baseURL}/ourpartners`}
+      />
+      <section className="px-6 pb-24 pt-32">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -137,6 +144,7 @@ const OurPartners = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
