@@ -31,10 +31,55 @@ const faqs = [
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", contact: "", description: "" });
+  const [errors, setErrors] = useState({ name: "", email: "", contact: "", description: "" });
   const [submitting, setSubmitting] = useState(false);
+
+  // Validate form fields
+  const validateForm = () => {
+    const newErrors = { name: "", email: "", contact: "", description: "" };
+    let isValid = true;
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Full name is required";
+      isValid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email address is required";
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address";
+      isValid = false;
+    }
+
+    if (!formData.contact.trim()) {
+      newErrors.contact = "Contact number is required";
+      isValid = false;
+    } else if (formData.contact.length < 10) {
+      newErrors.contact = "Contact number must be at least 10 digits";
+      isValid = false;
+    }
+
+    if (!formData.description.trim()) {
+      newErrors.description = "Message is required";
+      isValid = false;
+    } else if (formData.description.trim().length < 10) {
+      newErrors.description = "Message must be at least 10 characters";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate before submission
+    if (!validateForm()) {
+      toast.error("Please fill in all fields correctly");
+      return;
+    }
 
     try {
       setSubmitting(true);
@@ -53,12 +98,20 @@ const Contact = () => {
 
       toast.success("Inquiry sent successfully.");
       setFormData({ name: "", email: "", contact: "", description: "" });
+      setErrors({ name: "", email: "", contact: "", description: "" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not send inquiry");
     } finally {
       setSubmitting(false);
     }
   };
+
+  // Check if all fields are filled for submit button
+  const isFormValid = 
+    formData.name.trim() !== "" &&
+    formData.email.trim() !== "" &&
+    formData.contact.trim() !== "" &&
+    formData.description.trim() !== "";
 
   return (
     <section className="pt-32 pb-24 px-6">
@@ -85,65 +138,82 @@ const Contact = () => {
         >
           <div className="border-b border-border pb-4 focus-within:border-primary transition-colors">
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">
-              Full Name
+              Full Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               required
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, name: e.target.value });
+                if (errors.name) setErrors({ ...errors, name: "" });
+              }}
               className="spark-input"
               placeholder="John Doe"
             />
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
 
           <div className="border-b border-border pb-4 focus-within:border-primary transition-colors">
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">
-              Email Address
+              Email Address <span className="text-red-500">*</span>
             </label>
             <input
               type="email"
               required
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value });
+                if (errors.email) setErrors({ ...errors, email: "" });
+              }}
               className="spark-input"
               placeholder="john@university.edu"
             />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div className="border-b border-border pb-4 focus-within:border-primary transition-colors">
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">
-              Contact Number
+              Contact Number <span className="text-red-500">*</span>
             </label>
             <input
               type="tel"
               required
               maxLength={10}
               value={formData.contact}
-              onChange={(e) => setFormData({ ...formData, contact: e.target.value.replace(/\D/g, "") })}
+              onChange={(e) => {
+                const digitsOnly = e.target.value.replace(/\D/g, "");
+                setFormData({ ...formData, contact: digitsOnly });
+                if (errors.contact) setErrors({ ...errors, contact: "" });
+              }}
               className="spark-input"
               placeholder="9876543210"
             />
+            {errors.contact && <p className="text-red-500 text-sm mt-1">{errors.contact}</p>}
           </div>
 
           <div className="border-b border-border pb-4 focus-within:border-primary transition-colors">
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">
-              Your Message
+              Your Message <span className="text-red-500">*</span>
             </label>
             <textarea
               required
               rows={3}
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, description: e.target.value });
+                if (errors.description) setErrors({ ...errors, description: "" });
+              }}
               className="spark-input resize-none"
               placeholder="Tell us about what you need."
             />
+            {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
           </div>
 
           <button
             type="submit"
-            disabled={submitting}
-            className="w-full py-6 bg-primary text-white rounded-xl text-lg font-medium overflow-hidden relative group disabled:opacity-70"
+            disabled={submitting || !isFormValid}
+            className="w-full py-6 bg-primary text-white rounded-xl text-lg font-medium overflow-hidden relative group disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="relative z-10">
               {submitting ? "Sending Inquiry..." : "Send Inquiry"}
@@ -155,7 +225,7 @@ const Contact = () => {
         <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-border pt-16">
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Email</p>
-            <p className="text-lg">operation@sparkconsulting.in</p>
+            <p className="text-lg">operation@thesparkconsulting.in</p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Location</p>
