@@ -12,12 +12,17 @@ export const handleaddquery = async (req,res)=>{
             contact,
             description
         })
-        await sendmail({name , email , contact, message:description })
-        return res.status(200).send(query);
+        // Send emails with query ID
+        await sendmail({name , email , contact, message:description, queryId: query._id })
+        return res.status(200).json({
+            message: "Query submitted successfully",
+            queryId: query._id,
+            query: query
+        });
         
     } catch (error){
         console.log(error);
-        return res.status(500).json({message : 'Interal server error'});   
+        return res.status(500).json({message : 'Internal server error'});   
     }
 }
 

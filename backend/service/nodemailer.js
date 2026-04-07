@@ -30,20 +30,24 @@ console.log("Admin mail sent :",info.messageId);
 return info;
 }
 
-export const sendUserConfirmationMail = async({name , email })=>{
+export const sendUserConfirmationMail = async({name , email, queryId })=>{
 const mailOptions = {
-    from : `"Sprak consulting"<${process.env.EMAIL_USER}>`,
+    from : `"Spark Consulting"<${process.env.EMAIL_USER}>`,
     to : email,
-    subject : `We received your query`,
-    text : `
-    Hi ${name},
-
-    We have received your query successfully.
-
-    Our team will review it and get back to you soon.
-
-    Regards,
-    Spark Consulting
+    subject : `We received your query - #${queryId}`,
+    html : `
+    <h2>Hi ${name},</h2>
+    
+    <p>Thank you for reaching out to us! We have received your query successfully.</p>
+    
+    <p><strong>Your Query Number: #${queryId}</strong></p>
+    
+    <p>Our team will review your query and get back to you soon. You can use your query number to track your inquiry.</p>
+    
+    <p>If you have any urgent matters, feel free to contact us directly.</p>
+    
+    <p>Regards,<br/>
+    <strong>Spark Consulting Team</strong></p>
     `,
 };
 const info = await transporter.sendMail(mailOptions);
@@ -51,7 +55,7 @@ console.log("User confirmation mail sent :",info.messageId);
 return info;
 }
 
-export const sendmail = async({name , email, contact, message })=>{
+export const sendmail = async({name , email, contact, message, queryId })=>{
     await sendAdminMail({name, email, contact, message});
-    await sendUserConfirmationMail({name, email});
+    await sendUserConfirmationMail({name, email, queryId});
 }

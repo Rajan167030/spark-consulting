@@ -33,6 +33,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", contact: "", description: "" });
   const [errors, setErrors] = useState({ name: "", email: "", contact: "", description: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [queryNumber, setQueryNumber] = useState<string | null>(null);
 
   // Validate form fields
   const validateForm = () => {
@@ -83,7 +84,7 @@ const Contact = () => {
 
     try {
       setSubmitting(true);
-      await apiRequest("/query/addquery", {
+      const response = await apiRequest("/query/addquery", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +97,16 @@ const Contact = () => {
         }),
       });
 
-      toast.success("Inquiry sent successfully.");
+      // Extract query ID from response
+      const id = response && typeof response === 'object' && 'queryId' in response 
+        ? (response as { queryId: string }).queryId 
+        : null;
+      
+      if (id) {
+        setQueryNumber(id);
+      }
+      
+      toast.success(`Inquiry sent successfully! Your query number is #${id}`);
       setFormData({ name: "", email: "", contact: "", description: "" });
       setErrors({ name: "", email: "", contact: "", description: "" });
     } catch (err) {
@@ -128,6 +138,24 @@ const Contact = () => {
             Whether you're a student, a company, or a hiring partner, you can reach the admin team directly from here.
           </p>
         </motion.div>
+
+        {queryNumber && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 p-6 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-xl"
+          >
+            <p className="text-green-800 dark:text-green-100 font-semibold">
+              ✅ Your inquiry has been submitted successfully!
+            </p>
+            <p className="text-green-700 dark:text-green-200 mt-2">
+              Your Query Number: <span className="font-bold text-lg">#{queryNumber}</span>
+            </p>
+            <p className="text-green-700 dark:text-green-200 mt-2">
+              A confirmation email has been sent to your email address. We will reach out to you soon.
+            </p>
+          </motion.div>
+        )}
 
         <motion.form
           initial={{ opacity: 0, y: 20 }}
