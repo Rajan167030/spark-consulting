@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import CompanyLogoCard from "@/components/CompanyLogoCard";
 import Beams from "@/components/Beams";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { apiRequest } from "@/lib/api";
 import paytmLogo from "@/assets/paytm.png";
 import screenshotOne from "@/assets/Screenshot 2026-04-05 163639.png";
 import screenshotTwo from "@/assets/Screenshot 2026-04-05 163704.png";
@@ -99,12 +100,32 @@ const testimonials = [
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
+  const [companies, setCompanies] = useState<Company[]>(trustedCompanies);
   const { resolvedTheme } = useTheme();
   const isMobile = useIsMobile();
 
+  // Fetch companies from API
+  useEffect(() => {
+    async function fetchCompanies() {
+      try {
+        const data = await apiRequest("/company/getcompany");
+        if (Array.isArray(data) && data.length > 0) {
+          // Combine API companies with trusted companies
+          const allCompanies = [...data, ...trustedCompanies];
+          setCompanies(allCompanies);
+        }
+      } catch (error) {
+        console.error("Failed to fetch companies:", error);
+        // Fallback to trusted companies on error
+        setCompanies(trustedCompanies);
+      }
+    }
+    fetchCompanies();
+  }, []);
+
   const marqueeCompanies = useMemo(
-    () => [...trustedCompanies, ...trustedCompanies],
-    [trustedCompanies],
+    () => [...companies, ...companies],
+    [companies],
   );
 
   const marqueeTestimonials = useMemo(
