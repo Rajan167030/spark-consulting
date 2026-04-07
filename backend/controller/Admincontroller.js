@@ -10,12 +10,10 @@ export const handladminlogin = async(req,res)=>{
      const token = jwt.sign({role : 'admin'} , process.env.JWT_SECRET,{
         expiresIn : "7d",
       });
-      res.cookie("jwt", token, {
-  maxAge: 7 * 24 * 60 * 60 * 1000, // in milliseconds (7 days)
-  httpOnly: true,  // prevent JavaScript access (protects against XSS)
-  sameSite: "lax",  // prevents CSRF attacks by only sending cookie from same site
-});
- return res.status(200).json({message : "Admin Login successfull"})
+      return res.status(200).json({
+        message : "Admin Login successfull",
+        token: token
+      })
     } catch (error){
         console.log(error.message);
         return res.status(500).json({message : "Internal server error"});

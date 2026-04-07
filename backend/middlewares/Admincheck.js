@@ -4,7 +4,10 @@ dotenv.config()
 
 export const admincheck = async(req,res,next)=>{
     try {
-        const token = req.cookies.jwt;
+        // Get token from Authorization header or cookies (for backward compatibility)
+        const authHeader = req.headers.authorization;
+        const token = authHeader ? authHeader.replace('Bearer ', '') : req.cookies.jwt;
+        
         if(!token){
             return res.status(401).json({message : "Token not found"});
         }

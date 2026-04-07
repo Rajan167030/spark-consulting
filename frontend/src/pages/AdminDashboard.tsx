@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { apiRequest } from "@/lib/api";
+import { apiRequest, setToken } from "@/lib/api";
 
 const ease = [0.19, 1, 0.22, 1] as const;
 
@@ -75,13 +75,19 @@ const AdminDashboard = () => {
 
     try {
       setBusyAction("login");
-      await apiRequest("/admin/login", {
+      const response = await apiRequest("/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(loginForm),
       });
+      
+      // Save the token from response
+      if (response && typeof response === 'object' && 'token' in response) {
+        setToken((response as { token: string }).token);
+      }
+      
       setAuthenticated(true);
       setLoginForm({ email: "", password: "" });
       toast.success("Admin login successful.");

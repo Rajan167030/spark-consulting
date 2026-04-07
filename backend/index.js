@@ -19,6 +19,7 @@ const allowedOrigins = (
     .filter(Boolean);
 
 const isAllowedOrigin = (origin) => {
+    // Allow requests without origin (e.g., Vercel health checks)
     if(!origin){
         return true;
     }
@@ -27,7 +28,12 @@ const isAllowedOrigin = (origin) => {
         return true;
     }
 
-    return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+    // Allow localhost development
+    if(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)){
+        return true;
+    }
+    
+    return false;
 };
 
 app.use(cors({
@@ -35,9 +41,13 @@ app.use(cors({
         if(isAllowedOrigin(origin)){
             return callback(null, true);
         }
-        return callback(null, false);
+        // Log denied origins for debugging
+        console.log('CORS denied for origin:', origin);
+        return callback(new Error('Not allowed by CORS'));
     },
-    credentials : true
+    credentials : true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }))
 app.use(express.json())
 app.use(express.urlencoded({
