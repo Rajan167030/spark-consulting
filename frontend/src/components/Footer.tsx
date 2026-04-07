@@ -84,8 +84,8 @@ const Footer = () => (
               <Link to="/contact" className="block transition-colors hover:text-white">
                 Book call
               </Link>
-              <a href="mailto:operation@sparkconsulting.in" className="block transition-colors hover:text-white">
-                operation@sparkconsulting.in
+              <a href="mailto:operation@thesparkconsulting.in" className="block transition-colors hover:text-white">
+                operation@thesparkconsulting.in
               </a>
               
             
@@ -99,7 +99,7 @@ const Footer = () => (
       </div>
 
       <div className="relative mx-auto mt-12 flex max-w-7xl flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/52 md:flex-row md:items-center md:justify-between">
-        <p>© 2026 Spark Consultancy. All rights reserved.</p>
+        <p>© 2026 the Spark Consulting. All rights reserved.</p>
         <div className="flex flex-wrap gap-4 text-white/72">
           <Link to="/privacy-policy" className="transition-colors hover:text-white">
             Privacy Policy
