@@ -53,11 +53,19 @@ const OurPartners = () => {
       try {
         const data = await apiRequest("/company/getcompany");
         if (Array.isArray(data) && data.length > 0) {
-          // Use API companies, fallback to default if empty
-          setPartners(data);
+          // Combine API companies with the default Paytm company
+          const allCompanies = [...data, 
+            {
+              _id: "paytm",
+              name: "Paytm",
+              logo: paytmLogo,
+            }
+          ];
+          setPartners(allCompanies);
         }
       } catch (error) {
         console.error("Failed to fetch companies:", error);
+        // Keep default if API fails
       }
     }
     fetchCompanies();
