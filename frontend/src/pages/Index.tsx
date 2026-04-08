@@ -150,20 +150,20 @@ const Index = () => {
         schemaData={generateSchemaMarkup("organization")}
       />
       <section className="relative overflow-hidden px-6 pt-28 pb-20 md:pt-36 md:pb-28">
-        <div className="pointer-events-none absolute inset-0 z-0 opacity-75 dark:opacity-90">
+        <div className="pointer-events-none absolute inset-0 z-0 opacity-85 md:opacity-75 dark:opacity-90">
           <Beams
             beamWidth={isMobile ? 2 : 3}
-            beamHeight={isMobile ? 18 : 30}
-            beamNumber={isMobile ? 12 : 20}
+            beamHeight={isMobile ? 28 : 38}
+            beamNumber={isMobile ? 18 : 26}
             lightColor={isDark ? "#93c5fd" : "#1d4ed8"}
-            backgroundColor={isDark ? "#020617" : "#f8fafc"}
-            speed={isMobile ? 1.6 : 2}
+            backgroundColor={isDark ? "#000000" : "#f8fafc"}
+            speed={isMobile ? 1.4 : 2}
             noiseIntensity={isDark ? 1.8 : 1.3}
             scale={0.2}
             rotation={isMobile ? 24 : 30}
           />
         </div>
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[32rem] bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.16),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(15,23,42,0.08),_transparent_28%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[32rem] bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.16),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(15,23,42,0.08),_transparent_28%)] dark:bg-none" />
         <div className="relative z-20 mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
