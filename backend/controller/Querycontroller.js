@@ -12,17 +12,22 @@ export const handleaddquery = async (req,res)=>{
             contact,
             description
         })
-        // Send emails with query ID
-        await sendmail({name , email , contact, message:description, queryId: query._id })
+        // Send emails with query ID (convert to string)
+        try {
+            await sendmail({name , email , contact, message:description, queryId: query._id.toString() })
+        } catch (emailError) {
+            console.log("Email sending error:", emailError);
+            // Don't fail the request if email fails, but log it
+        }
         return res.status(200).json({
             message: "Query submitted successfully",
-            queryId: query._id,
+            queryId: query._id.toString(),
             query: query
         });
         
     } catch (error){
-        console.log(error);
-        return res.status(500).json({message : 'Internal server error'});   
+        console.log("Query creation error:", error);
+        return res.status(500).json({message : 'Internal server error', error: error.message});   
     }
 }
 

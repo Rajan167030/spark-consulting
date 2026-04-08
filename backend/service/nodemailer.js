@@ -56,6 +56,14 @@ return info;
 }
 
 export const sendmail = async({name , email, contact, message, queryId })=>{
-    await sendAdminMail({name, email, contact, message});
-    await sendUserConfirmationMail({name, email, queryId});
+    try {
+        // Send admin notification
+        await sendAdminMail({name, email, contact, message});
+        
+        // Send user confirmation
+        await sendUserConfirmationMail({name, email, queryId});
+    } catch (error) {
+        console.log("Error in sendmail:", error);
+        throw error;
+    }
 }
