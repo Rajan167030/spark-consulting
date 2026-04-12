@@ -23,7 +23,7 @@ const socialLinks = [
   },
   {
     label: "",
-    href: "https://x.com",
+    href: "https://x.com/Spark29282",
     icon: Twitter,
   },
 ];
